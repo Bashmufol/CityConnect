@@ -15,14 +15,16 @@ import java.util.Optional;
 public class MyUserDetailsService implements UserDetailsService {
     private final UserRepository repo;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<MyAppUsers> user = repo.findByUsername(username);
-        if (user.isPresent()) {
-            var userDetails = user.get();
-            return User.builder()
-                    .username(userDetails.getUsername())
-                    .password(userDetails.getPassword())
-                    .build();
-        } else throw new UsernameNotFoundException("User not found with username: " + username);
+    public UserDetails loadUserByUsername(String input) throws UsernameNotFoundException {
+        Optional<MyAppUsers> userOptional = repo.findByUsername(input);
+        if (userOptional.isEmpty()) {
+           userOptional = repo.findByEmail(input);
+        }
+        if (userOptional.isPresent()) {
+            MyAppUsers user = userOptional.get();
+            return new UserPrincipal(user);
+        }
+
+        else throw new UsernameNotFoundException("User not found with username or email" + input);
     }
 }
