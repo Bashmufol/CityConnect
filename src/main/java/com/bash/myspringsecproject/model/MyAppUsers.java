@@ -1,8 +1,6 @@
 package com.bash.myspringsecproject.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,11 +10,14 @@ import lombok.Setter;
 @Table(name = "users")
 public class MyAppUsers {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String username;
     private String password;
+    @Column(unique = true)
     private String email;
 
 }

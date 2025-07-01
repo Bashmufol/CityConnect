@@ -1,8 +1,6 @@
 package com.bash.myspringsecproject.service;
 
 import com.bash.myspringsecproject.model.MyAppUsers;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,12 +8,16 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
-@Service
+
 public class UserPrincipal implements UserDetails {
 
-    private MyAppUsers user;
+    private final MyAppUsers user;
+
+    public UserPrincipal(MyAppUsers user) {
+        this.user = user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
