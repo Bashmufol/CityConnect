@@ -18,7 +18,7 @@ import java.util.function.Function;
 public class JwtService {
     @Value("${security.jwt.secret-key}")
     private String secretKey;
-    @Value("{security.jwt.expiration-time}")
+    @Value("${security.jwt.expiration-time}")
     private long jwtExpirationTime;
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
