@@ -18,7 +18,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String input) {
         Optional<MyAppUsers> userOptional = repo.findByUsername(input);
         if (userOptional.isEmpty()) {
-           userOptional = repo.findByEmail(input);
+           userOptional = repo.findByEmail(input);htndndm
         }
         if (userOptional.isPresent()) {
             MyAppUsers user = userOptional.get();
